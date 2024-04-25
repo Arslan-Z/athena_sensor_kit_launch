@@ -37,8 +37,10 @@ def launch_setup(context, *args, **kwargs):
         parameters=[
             {
                 "input_topics": [
-                    "rslidar_sdk/rs_helios_top/points_raw",
-                    "rslidar_sdk/rs_m1_right/points_raw"
+                    "rslidar_sdk/rs_helios_top/pointcloud",
+                    "rslidar_sdk/rs_m1_right/pointcloud"
+                    # "rslidar_sdk/rs_helios_top/points_raw",
+                    # "rslidar_sdk/rs_m1_right/points_raw"
                     # "/sensing/lidar/top/pointcloud_before_sync",
                     # "/sensing/lidar/left/pointcloud_before_sync",
                     # "/sensing/lidar/right/pointcloud_before_sync",
