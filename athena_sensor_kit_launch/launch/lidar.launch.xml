@@ -9,6 +9,7 @@
 
   <group>
     <push-ros-namespace namespace="lidar"/>
+
     <group if="$(var launch_driver)">
       <include file="$(find-pkg-share rslidar_sdk)/launch/athena_rslidar_multi.py"></include>
     </group>
@@ -85,5 +86,6 @@
       <arg name="use_multithread" value="true"/>
       <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
     </include>
+    
   </group>
 </launch>

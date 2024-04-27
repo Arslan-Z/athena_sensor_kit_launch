@@ -17,7 +17,7 @@
 
     <!-- FixPosition GNSS Driver -->
     <group if="$(eval &quot;'$(var launch_driver)' and '$(var gnss_receiver)'=='fixposition'&quot;)">
-      <node name="fixposition_driver_ros2" pkg="fixposition_driver_ros2" exec="fixposition_driver_ros2_exec" output="screen" respawn="true" respawn_delay="5">
+      <node name="fixposition_driver_ros2" pkg="fixposition_driver_ros2" exec="fixposition_driver_ros2_exec" if="$(var launch_driver)" output="screen" respawn="true" respawn_delay="5">
         <param from="$(find-pkg-share fixposition_driver_ros2)/launch/gnss_athena_tcp.yaml" />
       </node>
     </group>
