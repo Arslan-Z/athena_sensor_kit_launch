@@ -13,7 +13,7 @@
       </node>
     </group> -->
     
-  <group>
+  <group if="$(var launch_driver)">
     <!-- <push-ros-namespace namespace="vn100"/> -->
     <include file="$(find-pkg-share imu_vn_100)/launch/athena_vn100.py"></include>
   </group>
