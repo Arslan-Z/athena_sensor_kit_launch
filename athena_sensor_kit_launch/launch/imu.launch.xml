@@ -13,13 +13,12 @@
       </node>
     </group> -->
     
-  <group>
+  <group if="$(var launch_driver)">
     <!-- <push-ros-namespace namespace="vn100"/> -->
     <include file="$(find-pkg-share imu_vn_100)/launch/athena_vn100.py"></include>
   </group>
     
   <arg name="imu_raw_name" default="vn100/imu/data"/>
-
     <arg name="imu_corrector_param_file" default="$(find-pkg-share individual_params)/config/$(var vehicle_id)/sample_sensor_kit/imu_corrector.param.yaml"/>
     <include file="$(find-pkg-share imu_corrector)/launch/imu_corrector.launch.xml">
       <arg name="input_topic" value="$(var imu_raw_name)"/>
