@@ -38,10 +38,10 @@ def launch_setup(context, *args, **kwargs):
         parameters=[
             {
                 "input_topics": [
-                    # "/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw",
-                    # "/sensing/lidar/rslidar_sdk/rs_m1_right/points_raw",
-                    "/sensing/lidar/rslidar_sdk/rs_helios_top/relay/points_raw",
-                    "/sensing/lidar/rslidar_sdk/rs_m1_right/relay/points_raw",
+                    "/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw",
+                    "/sensing/lidar/rslidar_sdk/rs_m1_right/points_raw",
+                    # "/sensing/lidar/rslidar_sdk/rs_helios_top/relay/points_raw",
+                    # "/sensing/lidar/rslidar_sdk/rs_m1_right/relay/points_raw",
                 ],
                 "output_frame": LaunchConfiguration("base_frame"),
                 "input_twist_topic_type": "twist",
