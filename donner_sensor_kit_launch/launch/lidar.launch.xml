@@ -39,6 +39,9 @@
     <param name="expression" value="m.header.frame_id = 'new_frame'; m"/>
   </component>
 
+ <node pkg="topic_tools" executable="transform" name="pointcloud_transform" output="log"
+        args="/sensing/lidar/top/pointcloud_before_sync /sensing/lidar/concatenated/pointcloud sensor_msgs/msg/PointCloud2 \"m.header.frame_id='new_frame'; m\"">
+  </node>
     <!-- <group>
       <push-ros-namespace namespace="top"/>
       <include file="$(find-pkg-share common_sensor_launch)/launch/velodyne_VLS128.launch.xml">
