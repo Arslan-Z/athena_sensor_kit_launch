@@ -32,6 +32,12 @@
       <param name="reliability" value="best_efforts"/>
     </component> -->
 
+  <component pkg="topic_tools" type="transform" name="pointcloud_transform" output="log">
+    <param name="input_topic" value="/sensing/lidar/top/pointcloud_before_sync"/>
+    <param name="output_topic" value="/sensing/lidar/concatenated/pointcloud"/>
+    <param name="type" value="sensor_msgs/msg/PointCloud2"/>
+    <param name="expression" value="m.header.frame_id = 'new_frame'; m"/>
+  </component>
 
     <!-- <group>
       <push-ros-namespace namespace="top"/>
