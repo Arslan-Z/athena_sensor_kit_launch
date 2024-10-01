@@ -38,7 +38,8 @@ def launch_setup(context, *args, **kwargs):
             {
                 "input_topics": [
                      "/sensing/lidar/top/pointcloud_before_sync",
-                     "rslidar_sdk/rs_helios_top/points_raw",
+                    #  "rslidar_sdk/rs_helios_top/points_raw",
+                    "/sensors/lidar/front_mid/point_cloud"
                 ],
                 "output_frame": LaunchConfiguration("base_frame"),
                 "input_twist_topic_type": "twist",

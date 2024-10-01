@@ -1,14 +1,26 @@
 <launch>
   <arg name="launch_driver" default="true"/>
-  <arg name="gnss_receiver" default="ublox" description="ublox(default) or septentrio"/>
+  <!-- <arg name="gnss_receiver" default="ublox" description="ublox(default) or septentrio"/> -->
+  <arg name="gnss_receiver" default="fixposition" description="fixposition(default) or septentrio"/>
 
   <group>
     <push-ros-namespace namespace="gnss"/>
 
     <!-- Switch topic name -->
+    <!-- <let name="navsatfix_topic_name" value="ublox/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)"/>
+    <let name="navsatfix_topic_name" value="septentrio/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='septentrio'&quot;)"/>
+    <let name="orientation_topic_name" value="/autoware_orientation"/> -->
     <let name="navsatfix_topic_name" value="ublox/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)"/>
     <let name="navsatfix_topic_name" value="septentrio/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='septentrio'&quot;)"/>
+    <let name="navsatfix_topic_name" value="fixposition/navsatfix" if="$(eval &quot;'$(var gnss_receiver)'=='fixposition'&quot;)"/>
     <let name="orientation_topic_name" value="/autoware_orientation"/>
+
+    <!-- FixPosition GNSS Driver -->
+    <group if="$(eval &quot;'$(var launch_driver)' and '$(var gnss_receiver)'=='fixposition'&quot;)">
+      <node name="fixposition_driver_ros2" pkg="fixposition_driver_ros2" exec="fixposition_driver_ros2_exec" output="screen" respawn="true" respawn_delay="5">
+        <param from="$(find-pkg-share fixposition_driver_ros2)/launch/gnss_athena_tcp.yaml" />
+      </node>
+    </group>
 
     <!-- Ublox Driver -->
     <group if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)">
@@ -24,7 +36,7 @@
     </group>
 
     <!-- NavSatFix to MGRS Pose -->
-    <include file="$(find-pkg-share autoware_gnss_poser)/launch/gnss_poser.launch.xml">
+    <include file="$(find-pkg-share gnss_poser)/launch/gnss_poser.launch.xml">
       <arg name="input_topic_fix" value="$(var navsatfix_topic_name)"/>
       <arg name="input_topic_orientation" value="$(var orientation_topic_name)"/>
 
