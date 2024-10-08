@@ -1,15 +1,38 @@
 <launch>
   <arg name="launch_driver" default="true"/>
-  <!--  <arg name="host_ip" default="192.168.1.10"/> -->
+  <!-- <arg name="host_ip" default="192.168.1.10"/> -->
+  <!-- <arg name="host_ip" default="192.168.116.10"/> -->
   <arg name="host_ip" default="192.168.1.58"/>
+
   <arg name="use_concat_filter" default="true"/>
+  <!-- <arg name="use_concat_filter" default="false"/> -->
   <arg name="vehicle_id" default="$(env VEHICLE_ID default)"/>
   <arg name="vehicle_mirror_param_file"/>
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
 
   <group>
     <push-ros-namespace namespace="lidar"/>
-        
+
+    <!-- <group if="$(var launch_driver)">
+      <include file="$(find-pkg-share rslidar_sdk)/launch/athena_rslidar_multi.py"></include>
+    </group> -->
+
+
+    <!-- <group>
+      <push-ros-namespace namespace="top"/>
+      <include file="$(find-pkg-share common_sensor_launch)/launch/hesai_PandarXT32.launch.xml">
+        <arg name="max_range" value="100.0"/>
+        <arg name="sensor_frame" value="hesai_top"/>
+        <arg name="sensor_ip" value="192.168.1.201"/>
+        <arg name="host_ip" value="$(var host_ip)"/>
+        <arg name="data_port" default="2368"/>
+        <arg name="scan_phase" default="0.0"/>
+        <arg name="launch_driver" value="$(var launch_driver)"/>
+        <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
+        <arg name="container_name" value="$(var pointcloud_container_name)"/>
+      </include>
+    </group> -->
+
     <group>
       <push-ros-namespace namespace="top"/>
       <include file="$(find-pkg-share orient_common_sensor_launch)/launch/hesai_PandarXT32.launch.xml">
@@ -25,6 +48,21 @@
       </include>
     </group>
 
+    <!-- <group>
+      <push-ros-namespace namespace="top"/>
+      <include file="$(find-pkg-share common_sensor_launch)/launch/velodyne_VLP16.launch.xml">
+        <arg name="max_range" value="100.0"/>
+        <arg name="sensor_frame" value="velodyne_top"/>
+        <arg name="sensor_ip" value="192.168.116.80"/>
+        <arg name="host_ip" value="$(var host_ip)"/>
+        <arg name="data_port" value="2368"/>
+        <arg name="scan_phase" value="300.0"/>
+        <arg name="launch_driver" value="$(var launch_driver)"/>
+        <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
+        <arg name="container_name" value="$(var pointcloud_container_name)"/>
+      </include>
+    </group> -->
+
     <node pkg="topic_tools" exec="relay" name="vlp16_relay" output="log" if="$(var launch_driver)">
       <param name="input_topic" value="/sensing/lidar/top/pointcloud_before_sync"/>
       <param name="output_topic" value="/sensing/lidar/concatenated/pointcloud"/>
@@ -32,17 +70,14 @@
       <param name="reliability" value="best_efforts"/>
     </node>
 
-    <!-- <component pkg="topic_tools" type="relay" name="vlp16_relay" output="log" if="$(var launch_driver)" container="$(var pointcloud_container_name)">
-      <param name="input_topic" value="/sensing/lidar/top/pointcloud_before_sync"/>
-      <param name="output_topic" value="/sensing/lidar/concatenated/pointcloud"/>
-      <param name="type" value="sensor_msgs/msg/Pointcloud2"/>
-      <param name="reliability" value="best_efforts"/>
-    </component> -->
 
+    <node pkg="topic_tools" exec="relay" name="command_relay" output="log" if="$(var launch_driver)">
+      <param name="input_topic" value="/autoware_cmd"/>
+      <param name="output_topic" value="/cmd_vel"/>
+      <param name="type" value="geometry_msgs/msg/Twist"/>
+      <param name="reliability" value="reliable"/>
+    </node>
 
-  <!-- <node pkg="topic_tools" executable="transform" name="pointcloud_transform" output="log"
-        args="/sensing/lidar/top/pointcloud_before_sync /sensing/lidar/concatenated/pointcloud sensor_msgs/msg/PointCloud2 \"m.header.frame_id='new_frame'; m\"">
-  </node> -->
 
     <!-- <group>
       <push-ros-namespace namespace="top"/>
@@ -110,7 +145,7 @@
       </include>
     </group> -->
 
-    <!-- <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
+    <!-- <include file="$(find-pkg-share athena_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
       <arg name="base_frame" value="base_link"/>
       <arg name="use_intra_process" value="true"/>
       <arg name="use_multithread" value="true"/>
