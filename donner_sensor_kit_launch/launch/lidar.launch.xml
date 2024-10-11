@@ -4,8 +4,8 @@
   <!-- <arg name="host_ip" default="192.168.116.10"/> -->
   <arg name="host_ip" default="192.168.1.58"/>
 
-  <arg name="use_concat_filter" default="true"/>
-  <!-- <arg name="use_concat_filter" default="false"/> -->
+  <!-- <arg name="use_concat_filter" default="true"/> -->
+  <arg name="use_concat_filter" default="false"/>
   <arg name="vehicle_id" default="$(env VEHICLE_ID default)"/>
   <arg name="vehicle_mirror_param_file"/>
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
@@ -63,20 +63,20 @@
       </include>
     </group> -->
 
-    <node pkg="topic_tools" exec="relay" name="vlp16_relay" output="log" if="$(var launch_driver)">
+    <!-- <node pkg="topic_tools" exec="relay" name="vlp16_relay" output="log" if="$(var launch_driver)">
       <param name="input_topic" value="/sensing/lidar/top/pointcloud_before_sync"/>
       <param name="output_topic" value="/sensing/lidar/concatenated/pointcloud"/>
       <param name="type" value="sensor_msgs/msg/Pointcloud2"/>
       <param name="reliability" value="best_efforts"/>
-    </node>
+    </node> -->
 
 
-    <node pkg="topic_tools" exec="relay" name="command_relay" output="log" if="$(var launch_driver)">
+    <!-- <node pkg="topic_tools" exec="relay" name="command_relay" output="log" if="$(var launch_driver)">
       <param name="input_topic" value="/autoware_cmd"/>
       <param name="output_topic" value="/cmd_vel"/>
       <param name="type" value="geometry_msgs/msg/Twist"/>
       <param name="reliability" value="reliable"/>
-    </node>
+    </node> -->
 
 
     <!-- <group>
@@ -145,11 +145,19 @@
       </include>
     </group> -->
 
-    <!-- <include file="$(find-pkg-share athena_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
+  <!-- <node pkg="message_tf_frame_transformer" exec="message_tf_frame_transformer" name="message_tf_frame_transformer" output="screen">
+    <remap from="~/input" to="/sensing/lidar/top/pointcloud_before_sync" />
+    <remap from="~/transformed" to="/sensing/lidar/concatenated/pointcloud" />
+    <param name="source_frame_id" value="hesai_top" />
+    <param name="target_frame_id" value="base_link" />
+  </node> -->
+
+
+    <include file="$(find-pkg-share donner_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
       <arg name="base_frame" value="base_link"/>
       <arg name="use_intra_process" value="true"/>
       <arg name="use_multithread" value="true"/>
       <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
-    </include> -->
+    </include>
   </group>
 </launch>
