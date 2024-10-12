@@ -10,6 +10,28 @@
   <arg name="vehicle_mirror_param_file"/>
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
 
+    <!-- 声明启动参数 -->
+  <arg name="x" default="0.84"/>
+  <arg name="y" default="0.38"/>
+  <arg name="z" default="1.63"/>
+  <arg name="roll" default="0.0"/>
+  <arg name="pitch" default="0.0"/>
+  <arg name="yaw" default="0.0"/>
+  <arg name="input_topic" default="/sensing/lidar/top/pointcloud_before_sync"/>
+  <arg name="output_topic" default="/sensing/lidar/concatenated/pointcloud"/>
+  <arg name="output_frame" default="base_link"/>
+ 
+   <!-- 添加 CropBox 参数 -->
+  <arg name="crop_box.min_x" default="-3.0"/>
+  <arg name="crop_box.max_x" default="1.5"/>
+
+  <arg name="crop_box.min_y" default="-1.5"/>
+  <arg name="crop_box.max_y" default="1.5"/>
+
+  <arg name="crop_box.min_z" default="1.8"/>
+  <arg name="crop_box.max_z" default="2.18"/>
+
+
   <group>
     <push-ros-namespace namespace="lidar"/>
 
@@ -47,6 +69,29 @@
         <arg name="container_name" value="$(var pointcloud_container_name)"/>
       </include>
     </group>
+
+    <group>
+    <include file="$(find-pkg-share point_cloud_transform)/launch/point_cloud_transform_composition_launch.py">
+      <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
+      <arg name="x" value="$(var x)"/>
+      <arg name="y" value="$(var y)"/>
+      <arg name="z" value="$(var z)"/>
+      <arg name="roll" value="$(var roll)"/>
+      <arg name="pitch" value="$(var pitch)"/>
+      <arg name="yaw" value="$(var yaw)"/>
+      <arg name="input_topic" value="$(var input_topic)"/>
+      <arg name="output_topic" value="$(var output_topic)"/>
+      <arg name="output_frame" value="$(var output_frame)"/>
+      <arg name="crop_box.min_x" value="$(var crop_box.min_x)"/>
+      <arg name="crop_box.min_y" value="$(var crop_box.min_y)"/>
+      <arg name="crop_box.min_z" value="$(var crop_box.min_z)"/>
+      <arg name="crop_box.max_x" value="$(var crop_box.max_x)"/>
+      <arg name="crop_box.max_y" value="$(var crop_box.max_y)"/>
+      <arg name="crop_box.max_z" value="$(var crop_box.max_z)"/>
+    </include>
+    
+    </group>
+
 
     <!-- <group>
       <push-ros-namespace namespace="top"/>
