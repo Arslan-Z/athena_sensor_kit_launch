@@ -42,7 +42,7 @@
 
     <!-- NavSatFix to MGRS Pose -->
     <include file="$(find-pkg-share gnss_poser)/launch/gnss_poser.launch.xml">
-      <arg name="param_file" value="$(find-pkg-share donner_sensor_kit_launch)/config/gnss_poser.param.yaml"/>
+      <arg name="param_file" value="$(find-pkg-share donner_sensor_kit_launch)/config/gnss/gnss_poser.param.yaml"/>
       <arg name="input_topic_fix" value="$(var navsatfix_topic_name)"/>
       <arg name="input_topic_orientation" value="$(var orientation_topic_name)"/>
 
