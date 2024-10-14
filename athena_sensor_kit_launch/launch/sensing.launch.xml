@@ -23,9 +23,9 @@
     </include>
 
     <!-- GNSS Driver -->
-    <include file="$(find-pkg-share athena_sensor_kit_launch)/launch/gnss.launch.xml">
+    <!-- <include file="$(find-pkg-share athena_sensor_kit_launch)/launch/gnss.launch.xml">
       <arg name="launch_driver" value="$(var launch_driver)"/>
-    </include>
+    </include> -->
 
     <!-- <include file="$(find-pkg-share athena_sensor_kit_launch)/launch/teleop_throttle.launch.py">
     </include> -->
