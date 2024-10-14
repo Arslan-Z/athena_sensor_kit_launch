@@ -12,20 +12,19 @@
     <let name="orientation_topic_name" value="/autoware_orientation"/> -->
     <let name="navsatfix_topic_name" value="ublox/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)"/>
     <let name="navsatfix_topic_name" value="septentrio/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='septentrio'&quot;)"/>
-    <let name="navsatfix_topic_name" value="fixposition/navsatfix" if="$(eval &quot;'$(var gnss_receiver)'=='fixposition'&quot;)"/>
+    <let name="navsatfix_topic_name" value="fixposition/odometry_llh" if="$(eval &quot;'$(var gnss_receiver)'=='fixposition'&quot;)"/>
     <let name="orientation_topic_name" value="/autoware_orientation"/>
 
     <!-- FixPosition GNSS Driver -->
     <group if="$(eval &quot;'$(var launch_driver)' and '$(var gnss_receiver)'=='fixposition'&quot;)">
-      <!-- <node name="fixposition_driver_ros2" pkg="fixposition_driver_ros2" exec="fixposition_driver_ros2_exec" output="screen" respawn="true" respawn_delay="5"> -->
-      <!-- <param from="$(find-pkg-share fixposition_driver_ros2)/launch/donner_tcp.yaml" /> -->
-      <!-- <param from="$(find-pkg-share donner_sensor_kit_launch)/data/gnss/vrtk_2.yaml" /> -->
-      <!-- </node> -->
+      <node name="fixposition_driver_ros2" pkg="fixposition_driver_ros2" exec="fixposition_driver_ros2_exec" output="screen" respawn="true" respawn_delay="5">
+        <param from="$(find-pkg-share donner_sensor_kit_launch)/data/gnss/vrtk_2.yaml" />
+      </node>
       <!-- <node name="fixposition_driver_ros2" pkg="fixposition_driver_ros2" exec="fixposition_driver_ros2_exec" output="screen" respawn="true" respawn_delay="5">
         <param from="$(find-pkg-share fixposition_driver_ros2)/launch/donner_tcp.yaml" />
       </node> -->
-      <include file="$(find-pkg-share fixposition_driver_ros2)/launch/donner_tcp.launch">
-      </include>
+      <!-- <include file="$(find-pkg-share fixposition_driver_ros2)/launch/donner_tcp.launch">
+      </include> -->
     </group>
 
     <!-- Ublox Driver -->
