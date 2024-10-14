@@ -18,7 +18,7 @@
     <!-- FixPosition GNSS Driver -->
     <group if="$(eval &quot;'$(var launch_driver)' and '$(var gnss_receiver)'=='fixposition'&quot;)">
       <node name="fixposition_driver_ros2" pkg="fixposition_driver_ros2" exec="fixposition_driver_ros2_exec" output="screen" respawn="true" respawn_delay="5">
-        <param from="$(find-pkg-share athena_sensor_kit_launch)/data/gnss/vrtk-2.yaml" />
+        <param from="$(find-pkg-share fixposition_driver_ros2)/launch/donner_tcp.yaml" />
       </node>
     </group>
 
