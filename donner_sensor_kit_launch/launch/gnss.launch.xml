@@ -52,5 +52,14 @@
 
       <arg name="use_gnss_ins_orientation" value="false"/>
     </include>
+
+    <!-- Add Static TF Transform -->
+    <node pkg="tf2_ros" exec="static_transform_publisher" name="static_tf_FP_POI" args="0 0 0 0 0 0 FP_POI_link FP_POI" output="screen">
+      <!-- Optional: Set additional parameters or remappings if needed -->
+    </node>
+
+    <!-- <node pkg="tf2_ros" exec="static_transform_publisher" output="screen" args="0.5 0 0 0 0 0 base_link tamagawa/imu_link"/> -->
+
+
   </group>
 </launch>
