@@ -13,10 +13,16 @@
   <group>
     <push-ros-namespace namespace="lidar"/>
 
-    <!-- <group if="$(var launch_driver)">
+    <group if="$(var launch_driver)">
       <include file="$(find-pkg-share rslidar_sdk)/launch/athena_rslidar_multi.py"></include>
-    </group> -->
+    </group>
 
+    <node pkg="topic_tools" exec="relay" name="helios_relay" output="log" if="$(var launch_driver)">
+      <param name="input_topic" value="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
+      <param name="output_topic" value="/sensing/lidar/concatenated/pointcloud"/>
+      <param name="type" value="sensor_msgs/msg/Pointcloud2"/>
+      <param name="reliability" value="best_efforts"/>
+    </node>
 
     <!-- <group>
       <push-ros-namespace namespace="top"/>
@@ -33,7 +39,7 @@
       </include>
     </group> -->
 
-    <group>
+    <!-- <group>
       <push-ros-namespace namespace="top"/>
       <include file="$(find-pkg-share orient_common_sensor_launch)/launch/hesai_PandarXT32.launch.xml">
         <arg name="max_range" value="100.0"/>
@@ -46,7 +52,7 @@
         <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
         <arg name="container_name" value="$(var pointcloud_container_name)"/>
       </include>
-    </group>
+    </group> -->
 
     <!-- <group>
       <push-ros-namespace namespace="top"/>
@@ -63,12 +69,12 @@
       </include>
     </group> -->
 
-    <node pkg="topic_tools" exec="relay" name="vlp16_relay" output="log" if="$(var launch_driver)">
+    <!-- <node pkg="topic_tools" exec="relay" name="hesai_relay" output="log" if="$(var launch_driver)">
       <param name="input_topic" value="/sensing/lidar/top/pointcloud_before_sync"/>
       <param name="output_topic" value="/sensing/lidar/concatenated/pointcloud"/>
       <param name="type" value="sensor_msgs/msg/Pointcloud2"/>
       <param name="reliability" value="best_efforts"/>
-    </node>
+    </node> -->
 
 
     <node pkg="topic_tools" exec="relay" name="command_relay" output="log" if="$(var launch_driver)">
