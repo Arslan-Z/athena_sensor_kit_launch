@@ -10,6 +10,28 @@
   <arg name="vehicle_mirror_param_file"/>
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
 
+    <!-- 声明启动参数 -->
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.0"/>
+  <arg name="roll" default="0.0"/>
+  <arg name="pitch" default="0.0"/>
+  <arg name="yaw" default="0.0"/>
+  <arg name="input_topic" default="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
+  <arg name="output_topic" default="/sensing/lidar/concatenated/pointcloud"/>
+  <arg name="output_frame" default="base_link"/>
+ 
+   <!-- 添加 CropBox 参数 -->
+  <arg name="crop_box.min_x" default="-0.7"/>
+  <arg name="crop_box.max_x" default="0.7"/>
+
+  <arg name="crop_box.min_y" default="-0.35"/>
+  <arg name="crop_box.max_y" default="0.35"/>
+
+  <arg name="crop_box.min_z" default="0.2"/>
+  <arg name="crop_box.max_z" default="1.8"/>
+
+
   <group>
     <push-ros-namespace namespace="lidar"/>
 
@@ -17,12 +39,34 @@
       <include file="$(find-pkg-share rslidar_sdk)/launch/athena_rslidar_multi.py"></include>
     </group>
 
-    <node pkg="topic_tools" exec="relay" name="helios_relay" output="log" if="$(var launch_driver)">
+    <!-- <node pkg="topic_tools" exec="relay" name="helios_relay" output="log" if="$(var launch_driver)">
       <param name="input_topic" value="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
       <param name="output_topic" value="/sensing/lidar/concatenated/pointcloud"/>
       <param name="type" value="sensor_msgs/msg/Pointcloud2"/>
       <param name="reliability" value="best_efforts"/>
-    </node>
+    </node> -->
+
+    <group>
+    <include file="$(find-pkg-share point_cloud_transform)/launch/point_cloud_transform_composition_launch.py">
+      <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
+      <arg name="x" value="$(var x)"/>
+      <arg name="y" value="$(var y)"/>
+      <arg name="z" value="$(var z)"/>
+      <arg name="roll" value="$(var roll)"/>
+      <arg name="pitch" value="$(var pitch)"/>
+      <arg name="yaw" value="$(var yaw)"/>
+      <arg name="input_topic" value="$(var input_topic)"/>
+      <arg name="output_topic" value="$(var output_topic)"/>
+      <arg name="output_frame" value="$(var output_frame)"/>
+      <arg name="crop_box.min_x" value="$(var crop_box.min_x)"/>
+      <arg name="crop_box.min_y" value="$(var crop_box.min_y)"/>
+      <arg name="crop_box.min_z" value="$(var crop_box.min_z)"/>
+      <arg name="crop_box.max_x" value="$(var crop_box.max_x)"/>
+      <arg name="crop_box.max_y" value="$(var crop_box.max_y)"/>
+      <arg name="crop_box.max_z" value="$(var crop_box.max_z)"/>
+    </include>
+    
+    </group>
 
     <!-- <group>
       <push-ros-namespace namespace="top"/>
