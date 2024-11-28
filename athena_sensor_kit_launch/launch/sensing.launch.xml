@@ -29,6 +29,10 @@
 
     <!-- <include file="$(find-pkg-share athena_sensor_kit_launch)/launch/teleop_throttle.launch.py">
     </include> -->
+        <!-- GNSS Driver -->
+    <include file="$(find-pkg-share donner_sensor_kit_launch)/launch/gnss.launch.xml">
+      <arg name="launch_driver" value="$(var launch_driver)"/>
+    </include>
 
     <!-- <node pkg="topic_tools" exec="throttle" name="Imu_reducer" output="log">
       <param name="input_topic" value="/sensing/imu/vn100/imu/data"/>
