@@ -69,11 +69,19 @@ sensor_kit_base_link:
   #   pitch: 0.0
   #   yaw: 0.0
 
- ## Hunter v2
-   hesai_top_base_link:
+## Hunter v2
+  hesai_top_base_link:
     x: 0.66
     y: 0.0
     z: 0.58
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
+    
+  camera0/camera_link:
+    x: 0.10731
+    y: 0.56343
+    z: -0.27697
+    roll: -0.025
+    pitch: 0.315
+    yaw: 1.035
