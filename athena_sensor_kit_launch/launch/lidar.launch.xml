@@ -11,19 +11,35 @@
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
 
     <!-- 声明启动参数 -->
-  <arg name="x" default="0.0"/>
+  <arg name="x" default="0.66"/>
   <arg name="y" default="0.0"/>
-  <arg name="z" default="0.0"/>
+  <arg name="z" default="0.58"/>
   <arg name="roll" default="0.0"/>
   <arg name="pitch" default="0.0"/>
   <arg name="yaw" default="0.0"/>
-  <arg name="input_topic" default="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
+  
+  <!-- helios -->
+  <!-- <arg name="input_topic" default="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
+  <arg name="output_topic" default="/sensing/lidar/concatenated/pointcloud"/>
+  <arg name="output_frame" default="base_link"/> -->
+
+  <!-- xt32 -->
+  <arg name="input_topic" default="/sensing/lidar/top/pointcloud_before_sync"/>
   <arg name="output_topic" default="/sensing/lidar/concatenated/pointcloud"/>
   <arg name="output_frame" default="base_link"/>
  
    <!-- 添加 CropBox 参数 -->
-  <arg name="crop_box.min_x" default="-0.8"/>
+  <!-- <arg name="crop_box.min_x" default="-0.8"/>
   <arg name="crop_box.max_x" default="0.7"/>
+
+  <arg name="crop_box.min_y" default="-0.4"/>
+  <arg name="crop_box.max_y" default="0.4"/>
+
+  <arg name="crop_box.min_z" default="-0.4"/>
+  <arg name="crop_box.max_z" default="2.2"/> -->
+
+  <arg name="crop_box.min_x" default="-1.14"/>
+  <arg name="crop_box.max_x" default="0.28"/>
 
   <arg name="crop_box.min_y" default="-0.4"/>
   <arg name="crop_box.max_y" default="0.4"/>
@@ -35,9 +51,10 @@
   <group>
     <push-ros-namespace namespace="lidar"/>
 
-    <group if="$(var launch_driver)">
+    <!-- helios -->
+    <!-- <group if="$(var launch_driver)">
       <include file="$(find-pkg-share rslidar_sdk)/launch/athena_rslidar_multi.py"></include>
-    </group>
+    </group> -->
 
     <!-- <node pkg="topic_tools" exec="relay" name="helios_relay" output="log" if="$(var launch_driver)">
       <param name="input_topic" value="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
@@ -45,6 +62,21 @@
       <param name="type" value="sensor_msgs/msg/Pointcloud2"/>
       <param name="reliability" value="best_efforts"/>
     </node> -->
+
+    <group>
+      <push-ros-namespace namespace="top"/>
+      <include file="$(find-pkg-share orient_common_sensor_launch)/launch/hesai_PandarXT32.launch.xml">
+        <arg name="max_range" value="100.0"/>
+        <arg name="sensor_frame" value="hesai_top"/>
+        <arg name="sensor_ip" value="192.168.1.201"/>
+        <arg name="host_ip" value="$(var host_ip)"/>
+        <arg name="data_port" value="2368"/>
+        <arg name="scan_phase" value="0.0"/>
+        <arg name="launch_driver" value="$(var launch_driver)"/>
+        <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
+        <arg name="container_name" value="$(var pointcloud_container_name)"/>
+      </include>
+    </group>
 
     <group>
     <include file="$(find-pkg-share point_cloud_transform)/launch/point_cloud_transform_composition_launch.py">
