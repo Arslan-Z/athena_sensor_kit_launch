@@ -29,6 +29,13 @@
         <param name="reliability" value="best_effort"/>
       </node>
 
+      <node pkg="topic_tools" exec="relay" name="d455_camera_image_relay" output="log">
+        <param name="input_topic" value="color/image_raw"/>
+        <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_rect_color"/>
+        <param name="type" value="sensor_msgs/msg/Image"/>
+        <param name="reliability" value="best_effort"/>
+      </node>
+
       <node pkg="topic_tools" exec="relay" name="d455_compressed_image_relay" output="log">
         <param name="input_topic" value="color/image_raw/compressed"/>
         <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_raw/compressed"/>
