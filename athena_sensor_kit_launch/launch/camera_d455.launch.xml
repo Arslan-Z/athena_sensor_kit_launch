@@ -5,44 +5,68 @@
   <arg name="camera_id" default="0"/>
 
   <group if="$(var launch_driver)">
+
     <include file="$(find-pkg-share realsense2_camera)/launch/rs_launch.py">
       <arg name="camera_namespace" value="$(var camera_namespace)"/>
       <arg name="camera_name" value="$(var camera_name)"/>
+      <arg name="publish_tf" value="false"/>
     </include>
-  </group>
 
-  <group>
-    <push-ros-namespace namespace="$(var camera_namespace)"/>
     <group>
-      <push-ros-namespace namespace="$(var camera_name)"/>
-      <node pkg="topic_tools" exec="relay" name="d455_camera_info_relay" output="log">
-        <param name="input_topic" value="color/camera_info"/>
-        <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/camera_info"/>
-        <param name="type" value="sensor_msgs/msg/CameraInfo"/>
-        <param name="reliability" value="best_effort"/>
-      </node>
+      <push-ros-namespace namespace="$(var camera_namespace)"/>
+      <group>
+        <push-ros-namespace namespace="$(var camera_name)"/>
+        <node pkg="topic_tools" exec="relay" name="d455_camera_info_relay" output="log">
+          <param name="input_topic" value="color/camera_info"/>
+          <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/camera_info"/>
+          <param name="type" value="sensor_msgs/msg/CameraInfo"/>
+          <param name="reliability" value="best_effort"/>
+        </node>
 
-      <node pkg="topic_tools" exec="relay" name="d455_camera_image_relay" output="log">
-        <param name="input_topic" value="color/image_raw"/>
-        <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_raw"/>
-        <param name="type" value="sensor_msgs/msg/Image"/>
-        <param name="reliability" value="best_effort"/>
-      </node>
+        <node pkg="topic_tools" exec="relay" name="d455_camera_image_raw_relay" output="log">
+          <param name="input_topic" value="color/image_raw"/>
+          <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_raw"/>
+          <param name="type" value="sensor_msgs/msg/Image"/>
+          <param name="reliability" value="best_effort"/>
+        </node>
+        <!-- <arg name="input_topic" default="color/image_raw"/>
+        <arg name="output_topic" default="/sensing/camera/camera$(var camera_id)/image_rect_color"/>
+        <arg name="output_frame" default="camera0_optical_link"/>
+        <arg name="reliability" default="reliable"/>
+        <node pkg="image_relay" exec="image_relay_node" name="d455_camera_image_rect_relay" output="log">
+          <param name="input_topic" value="$(var input_topic)"/>
+          <param name="output_topic" value="$(var output_topic)"/>
+          <param name="output_frame" value="$(var output_frame)"/>
+          <param name="reliability" value="$(var reliability)"/>
+        </node> -->
 
-      <node pkg="topic_tools" exec="relay" name="d455_camera_image_relay" output="log">
-        <param name="input_topic" value="color/image_raw"/>
-        <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_rect_color"/>
-        <param name="type" value="sensor_msgs/msg/Image"/>
-        <param name="reliability" value="best_effort"/>
-      </node>
+        <node pkg="topic_tools" exec="relay" name="d455_camera_image_rect_relay" output="log">
+          <param name="input_topic" value="color/image_raw"/>
+          <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_rect_color"/>
+          <param name="type" value="sensor_msgs/msg/Image"/>
+          <param name="reliability" value="best_effort"/>
+        </node>
 
-      <node pkg="topic_tools" exec="relay" name="d455_compressed_image_relay" output="log">
-        <param name="input_topic" value="color/image_raw/compressed"/>
-        <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_raw/compressed"/>
-        <param name="type" value="sensor_msgs/msg/CompressedImage"/>
-        <param name="reliability" value="best_effort"/>
-      </node>
+        <node pkg="topic_tools" exec="relay" name="d455_compressed_image_relay" output="log">
+          <param name="input_topic" value="color/image_raw/compressed"/>
+          <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_raw/compressed"/>
+          <param name="type" value="sensor_msgs/msg/CompressedImage"/>
+          <param name="reliability" value="best_effort"/>
+        </node>
+
+        <node pkg="topic_tools" exec="relay" name="d455_compressed_image_rect_relay" output="log">
+          <param name="input_topic" value="color/image_raw/compressed"/>
+          <param name="output_topic" value="/sensing/camera/camera$(var camera_id)/image_rect_color/compressed"/>
+          <param name="type" value="sensor_msgs/msg/CompressedImage"/>
+          <param name="reliability" value="best_effort"/>
+        </node>
+
+        <!-- <node pkg="tf2_ros" exec="static_transform_publisher" name="lidar_d455_transform_publisher" args="0.00239781 0.000139214 -0.185854 -0.49724 0.50284 -0.50239 -0.4973 hesai_top_base_link d455_optical_link" /> -->
+      </group>
     </group>
+
   </group>
+
+   <!-- <node pkg="tf2_ros" exec="static_transform_publisher" name="lidar_d455_transform_publisher" args="0.00239781 0.000139214 -0.185854 -0.49724 0.50284 -0.50239 -0.4973 hesai_top_base_link d455_color_optical_frame" /> -->
 
 </launch>

@@ -1,0 +1,8 @@
+<launch>
+<node pkg="topic_tools" exec="relay" name="d455_compressed_image_rect_relay" output="log">
+    <param name="input_topic" value="/sensing/camera/camera0/image_raw"/>
+    <param name="output_topic" value="/sensing/camera/camera0/image_rect_color"/>
+    <param name="type" value="sensor_msgs/msg/CompressedImage"/>
+    <param name="reliability" value="reliable"/>
+</node>
+</launch>
