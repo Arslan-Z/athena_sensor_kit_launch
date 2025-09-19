@@ -54,7 +54,7 @@
     <!-- helios -->
     <!-- <group if="$(var launch_driver)">
       <include file="$(find-pkg-share rslidar_sdk)/launch/athena_rslidar_multi.py"></include>
-    </group> -->
+    </group> --> 
 
     <!-- <node pkg="topic_tools" exec="relay" name="helios_relay" output="log" if="$(var launch_driver)">
       <param name="input_topic" value="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>

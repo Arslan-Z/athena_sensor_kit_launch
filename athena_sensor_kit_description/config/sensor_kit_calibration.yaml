@@ -1,39 +1,39 @@
 sensor_kit_base_link:
-  rs_helios_top_base_link:
-    x: 0.33
-    y: 0.0
-    z: 1.03
-    roll: 0.0
-    pitch: 0.0
-    yaw: 0.0
-  rs_helios_top:
-    x: 0.33
-    y: 0.0
-    z: 1.03
-    roll: 0.0
-    pitch: 0.0
-    yaw: 0.0
-  rs_m1_right_base_link:
-    x: 0.05805821
-    y: -0.05213823
-    z: -0.19447826
-    roll: 0.006759552829151971
-    pitch: -0.01536812881084959
-    yaw: 0.011053114153920518
-  rs_m1_right:
-    x: 0.05805821
-    y: -0.05213823
-    z: -0.19447826
-    roll: 0.006759552829151971
-    pitch: -0.01536812881084959
-    yaw: 0.011053114153920518
-  FP_POI:
-    x: -0.0230383
-    y: 0.00164131
-    z: -0.0023232
-    roll: 0.004996711040239354
-    pitch: 0.027708441173970755
-    yaw: -0.0015361610331341424
+  # rs_helios_top_base_link:
+  #   x: 0.33
+  #   y: 0.0
+  #   z: 1.03
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
+  # rs_helios_top:
+  #   x: 0.33
+  #   y: 0.0
+  #   z: 1.03
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
+  # rs_m1_right_base_link:
+  #   x: 0.05805821
+  #   y: -0.05213823
+  #   z: -0.19447826
+  #   roll: 0.006759552829151971
+  #   pitch: -0.01536812881084959
+  #   yaw: 0.011053114153920518
+  # rs_m1_right:
+  #   x: 0.05805821
+  #   y: -0.05213823
+  #   z: -0.19447826
+  #   roll: 0.006759552829151971
+  #   pitch: -0.01536812881084959
+  # #   yaw: 0.011053114153920518
+  # FP_POI:
+  #   x: -0.0230383
+  #   y: 0.00164131
+  #   z: -0.0023232
+  #   roll: 0.004996711040239354
+  #   pitch: 0.027708441173970755
+  #   yaw: -0.0015361610331341424
   vn100:
     x: 0.0593906463101951
     y: 0.03308971709058904
@@ -53,13 +53,13 @@ sensor_kit_base_link:
     # roll: 3.14159265359
     # pitch: 0.0
     # yaw: 3.14159265359
-  velodyne_top_base_link:
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    roll: 0.0
-    pitch: 0.0
-    yaw: 0.0
+  # velodyne_top_base_link:
+  #   x: 0.0
+  #   y: 0.0
+  #   z: 0.0
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
   ## Hunter v1
   # hesai_top_base_link:
   #   x: 0.33
@@ -69,15 +69,21 @@ sensor_kit_base_link:
   #   pitch: 0.0
   #   yaw: 0.0
 
-## Hunter v2
+  # ## Hunter v2
+  # hesai_top_base_link:
+  #   x: 0.66
+  #   y: 0.0
+  #   z: 0.58
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
   hesai_top_base_link:
-    x: 0.66
+    x: 0.0
     y: 0.0
-    z: 0.58
+    z: 0.0
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
-    
   # camera0/camera_link:
   #   x: 0.10731
   #   y: 0.56343
