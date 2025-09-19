@@ -19,14 +19,14 @@
   <arg name="yaw" default="0.0"/>
   
   <!-- helios -->
-  <arg name="input_topic" default="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
-  <arg name="output_topic" default="/sensing/lidar/concatenated/pointcloud"/>
-  <arg name="output_frame" default="base_link"/>
-
-  <!-- xt32 -->
-  <!-- <arg name="input_topic" default="/sensing/lidar/top/pointcloud_before_sync"/>
+  <!-- <arg name="input_topic" default="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
   <arg name="output_topic" default="/sensing/lidar/concatenated/pointcloud"/>
   <arg name="output_frame" default="base_link"/> -->
+
+  <!-- xt32 -->
+  <arg name="input_topic" default="/sensing/lidar/top/pointcloud_before_sync"/>
+  <arg name="output_topic" default="/sensing/lidar/concatenated/pointcloud"/>
+  <arg name="output_frame" default="base_link"/>
  
    <!-- 添加 CropBox 参数 -->
   <!-- <arg name="crop_box.min_x" default="-0.8"/>
@@ -52,9 +52,9 @@
     <push-ros-namespace namespace="lidar"/>
 
     <!-- helios -->
-    <group if="$(var launch_driver)">
+    <!-- <group if="$(var launch_driver)">
       <include file="$(find-pkg-share rslidar_sdk)/launch/athena_rslidar_multi.py"></include>
-    </group> 
+    </group> --> 
 
     <!-- <node pkg="topic_tools" exec="relay" name="helios_relay" output="log" if="$(var launch_driver)">
       <param name="input_topic" value="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
@@ -63,7 +63,7 @@
       <param name="reliability" value="best_efforts"/>
     </node> -->
 
-    <!-- <group>
+    <group>
       <push-ros-namespace namespace="top"/>
       <include file="$(find-pkg-share orient_common_sensor_launch)/launch/hesai_PandarXT32.launch.xml">
         <arg name="max_range" value="100.0"/>
@@ -76,7 +76,7 @@
         <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
         <arg name="container_name" value="$(var pointcloud_container_name)"/>
       </include>
-    </group> -->
+    </group>
 
     <group>
     <include file="$(find-pkg-share point_cloud_transform)/launch/point_cloud_transform_composition_launch.py">
