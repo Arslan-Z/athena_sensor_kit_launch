@@ -11,17 +11,17 @@
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
 
     <!-- 声明启动参数 -->
-  <arg name="x" default="0.66"/>
+  <!-- <arg name="x" default="0.66"/>
   <arg name="y" default="0.0"/>
   <arg name="z" default="0.58"/>
   <arg name="roll" default="0.0"/>
   <arg name="pitch" default="0.0"/>
-  <arg name="yaw" default="0.0"/>
+  <arg name="yaw" default="0.0"/> -->
   
   <!-- helios -->
-  <arg name="input_topic" default="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
+  <!-- <arg name="input_topic" default="/sensing/lidar/rslidar_sdk/rs_helios_top/points_raw"/>
   <arg name="output_topic" default="/sensing/lidar/concatenated/pointcloud"/>
-  <arg name="output_frame" default="base_link"/>
+  <arg name="output_frame" default="base_link"/> -->
 
   <!-- xt32 -->
   <!-- <arg name="input_topic" default="/sensing/lidar/top/pointcloud_before_sync"/>
@@ -38,14 +38,14 @@
   <arg name="crop_box.min_z" default="-0.4"/>
   <arg name="crop_box.max_z" default="2.2"/> -->
 
-  <arg name="crop_box.min_x" default="-1.14"/>
+  <!-- <arg name="crop_box.min_x" default="-1.14"/>
   <arg name="crop_box.max_x" default="0.28"/>
 
   <arg name="crop_box.min_y" default="-0.4"/>
   <arg name="crop_box.max_y" default="0.4"/>
 
   <arg name="crop_box.min_z" default="-0.4"/>
-  <arg name="crop_box.max_z" default="2.2"/>
+  <arg name="crop_box.max_z" default="2.2"/> -->
 
 
   <group>
@@ -78,7 +78,7 @@
       </include>
     </group> -->
 
-    <group>
+    <!-- <group>
     <include file="$(find-pkg-share point_cloud_transform)/launch/point_cloud_transform_composition_launch.py">
       <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
       <arg name="x" value="$(var x)"/>
@@ -96,9 +96,9 @@
       <arg name="crop_box.max_x" value="$(var crop_box.max_x)"/>
       <arg name="crop_box.max_y" value="$(var crop_box.max_y)"/>
       <arg name="crop_box.max_z" value="$(var crop_box.max_z)"/>
-    </include>
+    </include> -->
     
-    </group>
+    <!-- </group> -->
 
     <!-- <group>
       <push-ros-namespace namespace="top"/>
@@ -227,11 +227,11 @@
       </include>
     </group> -->
 
-    <!-- <include file="$(find-pkg-share athena_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
+    <include file="$(find-pkg-share athena_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
       <arg name="base_frame" value="base_link"/>
       <arg name="use_intra_process" value="true"/>
       <arg name="use_multithread" value="true"/>
       <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
-    </include> -->
+    </include>
   </group>
 </launch>
